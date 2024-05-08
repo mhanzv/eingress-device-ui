@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AfterLoginComponent } from './after-login/after-login.component';
 
 @Component({
   selector: 'app-root',
