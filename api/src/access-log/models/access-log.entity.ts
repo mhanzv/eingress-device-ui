@@ -9,6 +9,9 @@ export class _dbaccesslog {
   @ManyToOne(() => _dbemployee, employee => employee.accessLogs)
   employee: _dbemployee;
 
+  @Column ()
+  rfidtag:string;
+
   @Column()
   accessDateTime: Date;
 
