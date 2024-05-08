@@ -46,10 +46,8 @@ submitData(): void {
   // Perform data submission logic here
   console.log('Submitted data:', this.inputElement.nativeElement.value);
 
-  // Clear the input textbox
-  this.inputElement.nativeElement.value = '';
 
-  // Refocus the input textbox for further input
+  this.inputElement.nativeElement.value = '';
   this.inputElement.nativeElement.focus();
 }
 
