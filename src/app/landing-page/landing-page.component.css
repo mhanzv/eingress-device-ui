@@ -86,6 +86,11 @@ body {
     animation: moveUpDown 1s ease-in-out infinite alternate; /* Animation name, duration, easing, iteration count */
 }
 
+.hidden-input{
+    position: absolute;
+    left: -9999px;
+}
+
 @keyframes moveUpDown {
     0% {
         bottom: 0; /* Start position */
