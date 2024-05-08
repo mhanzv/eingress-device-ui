@@ -58,7 +58,7 @@ create(employee: Employee): Observable<Employee> {
       );
     }
     
-    logEmployeeAccess(rfidTag: string, accessType: string, roleAtAccess: string): Observable<any> {
+    logEmployeeAccess(rfidTag: string, accessType?: string, roleAtAccess?: string): Observable<any> {
       // Find the employee by RFID tag
       return from(this.userRepository.findOne({ where: { rfidtag: rfidTag } })).pipe(
           switchMap(employee => {
@@ -81,11 +81,12 @@ create(employee: Employee): Observable<Employee> {
               const dateAndTimeInPhilippineTime = currentDate.toLocaleString('en-PH', options);
               employee.lastlogdate = dateAndTimeInPhilippineTime;
   
+              
               // Save the updated employee
               return from(this.userRepository.save(employee)).pipe(
                   switchMap(() => {
                       // Log the access in AccessLogService
-                      return this.accessLogService.logAccess(rfidTag, accessType, roleAtAccess);
+                      return this.accessLogService.logAccess(rfidTag);
                   })
               );
           })

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { _dbaccesslog } from './../../access-log/models/access-log.entity';
-import { Observable, from, map, switchMap } from 'rxjs';
+import { Observable, catchError, from, map, switchMap, throwError } from 'rxjs';
 import { _dbemployee } from 'src/employee-list/models/employee.entity';
 
 @Injectable()
@@ -45,60 +45,89 @@ export class AccessLogService {
     });
   }
   
-  logAccess(rfidTag: string, accessType: string, roleAtAccess: string): Observable<void> {
-    // Find the employee by RFID tag
+  // logAccess(rfidTag: string, accessType: string, roleAtAccess: string): Observable<void> {
+  //   // Find the employee by RFID tag
+  //   return from(this.employeeRepository.findOne({ where: { rfidtag: rfidTag } })).pipe(
+  //     switchMap(employee => {
+  //       if (!employee) {
+  //         throw new BadRequestException('Employee not found');
+  //       }
+
+  //       // Create a new access log entry
+  //       const accessLog: _dbaccesslog = {
+  //         employee,
+  //         accessDateTime: new Date(),
+  //         accessType,
+  //         roleAtAccess,
+  //         id: 0,
+  //       };
+
+  //       // Save the access log
+  //       return from(this.accessLogRepository.save(accessLog)).pipe(
+  //         map(() => {})
+  //       );
+  //     })
+  //   );
+  // }
+  
+  logAccess(rfidTag: string): Observable<void> {
     return from(this.employeeRepository.findOne({ where: { rfidtag: rfidTag } })).pipe(
-      switchMap(employee => {
+      switchMap((employee: _dbemployee) => {
         if (!employee) {
           throw new BadRequestException('Employee not found');
         }
 
-        // Create a new access log entry
-        const accessLog: _dbaccesslog = {
-          employee,
+        const accessLogEntry: _dbaccesslog = {
+          id: 0, // Provide a default value for id if it's not auto-generated
+          rfidtag: employee.rfidtag, // Add rfidtag from employee
           accessDateTime: new Date(),
-          accessType,
-          roleAtAccess,
-          id: 0,
+          accessType: 'In', // or 'Out', depending on the logic
+          roleAtAccess: employee.role,
+          employee: employee // Include the employee entity
+          // Any additional properties you need to include in the access log entry
         };
 
-        // Save the access log
-        return from(this.accessLogRepository.save(accessLog)).pipe(
-          map(() => {})
+        return from(this.accessLogRepository.save(accessLogEntry)).pipe(
+          catchError((error) => {
+            return throwError('Error saving access log');
+          }),
+          switchMap(() => {
+            return from(Promise.resolve()); // Return an empty observable
+          })
         );
+      }),
+      catchError((error) => {
+        return throwError('Error finding employee');
       })
     );
   }
 
-  // logAccess(employeeId: number, accessType: string, roleAtAccess: string): Observable<void> {
-  //   // Create a new access log entry
-  //   const accessLog: _dbaccesslog = {
-  //     employee: {
-  //       id: employeeId,
-  //       fullname: '',
-  //       phone: '',
-  //       email: '',
-  //       role: '',
-  //       regdate: undefined,
-  //       lastlogdate: '',
-  //       profileImage: '',
-  //       accessLogs: [],
-  //       rfidtag: '',
-  //       fingerprint: ''
-  //     }, // Set employee ID
-  //     accessDateTime: new Date(),
-  //     accessType,
-  //     roleAtAccess,
-  //     id: 0,
-  //   };
-
-  //   // Save the access log
-  //   return from(this.accessLogRepository.save(accessLog)).pipe(
-  //     map(() => {})
+  // logAccess(rfidTag: string, accessType?: string, roleAtAccess?: string): Observable<void> {
+  //   // Find the employee by RFID tag
+  //   return from(this.employeeRepository.findOne({ where: { rfidtag: rfidTag } })).pipe(
+  //     switchMap(employee => {
+  //       if (!employee) {
+  //         throw new BadRequestException('Employee not found');
+  //       }
+  
+  //       // Create a new access log entry
+  //       const accessLog: _dbaccesslog = {
+  //         employee,
+  //         accessDateTime: new Date(),
+  //         accessType: accessType || '', // Use provided value or empty string if not provided
+  //         roleAtAccess: roleAtAccess || '', // Use provided value or empty string if not provided
+  //         id: 0,
+  //         rfidtag: ''
+  //       };
+  
+  //       // Save the access log
+  //       return from(this.accessLogRepository.save(accessLog)).pipe(
+  //         map(() => {})
+  //       );
+  //     })
   //   );
   // }
-
-  // AccessLogService
+  
 
   findByEmployeeId(employeeId: number): Promise<_dbaccesslog[]> {
     return this.accessLogRepository.find({ where: { employee: { id: employeeId } } });

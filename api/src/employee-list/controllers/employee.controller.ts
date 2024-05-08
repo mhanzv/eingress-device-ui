@@ -120,16 +120,26 @@ create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observabl
     
     
 
-    @Post('log-access/:rfidtag')
-    logEmployeeAccess(@Param('rfidtag') rfidtag: string, @Body() accessData: { accessType: string, roleAtAccess: string }): Promise<void> {
-      const { accessType, roleAtAccess } = accessData;
+
+  // @Post('log-access')
+  // logAccess(@Body('rfidTag') rfidTag: string): Promise<void> {
+  //   if (!rfidTag) {
+  //     throw new BadRequestException('RFID tag is required');
+  //   }
     
-      if (!rfidtag || !accessType || !roleAtAccess) {
-        throw new BadRequestException('Invalid access data');
-      }
+  //   return this.userService.logEmployeeAccess(rfidTag).toPromise();
+  // }
+// // This is the code for RFID tage using params
+//     @Post('log-access/:rfidtag')
+//     logEmployeeAccess(@Param('rfidtag') rfidtag: string, @Body() accessData: { accessType?: string, roleAtAccess?: string }): Promise<void> {
+//       const { accessType, roleAtAccess } = accessData;
     
-      return this.userService.logEmployeeAccess(rfidtag, accessType, roleAtAccess).toPromise();
-    }
+//       if (!rfidtag || !accessType || !roleAtAccess) {
+//         throw new BadRequestException('Invalid access data');
+//       }
+    
+//       return this.userService.logEmployeeAccess(rfidtag, accessType, roleAtAccess).toPromise();
+//     }
     
     // @Post('log-access/:rfidtag')
     // logEmployeeAccess(@Param('rfidtag') rfidtag: string, @Body() accessData: { accessType: string, roleAtAccess: string }): Promise<void> {
@@ -156,9 +166,7 @@ create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observabl
     //   ).toPromise();
     // }
     
-
-    
-
+ 
     @Post('upload')
     @UseInterceptors(FileInterceptor('file',storage))
     uploadFile(@UploadedFile()file): Observable<Object> {
