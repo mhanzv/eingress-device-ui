@@ -4,14 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', Arial, sans-serif;
 }
 
 /* Body styles */
 body {
     background-color: #0C131D;
-    padding: 0;
-    margin: 0;
+    padding: 50px; /*remove this after*/
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 /* Main container styles */
@@ -20,6 +19,7 @@ body {
     background-color: #0C131D;
     height: 1024px;
     width: 600px;
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -99,11 +99,3 @@ body {
         bottom: 20px; /* End position */
     }
 }
-
-@media screen and (max-width: 600px) {
-    .main-container{
-        height: 1024px;
-        width: 600px;
-
-    }
-  }
