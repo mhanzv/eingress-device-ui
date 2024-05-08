@@ -120,16 +120,18 @@ create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observabl
     
     
 
-
+    // create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observable<Employee | Object> {
+  
   @Post('log-access')
   logAccess(@Body('rfidTag') rfidTag: string): Promise<void> {
-    console.log(rfidTag);
     if (!rfidTag) {
       throw new BadRequestException('RFID tag is required');
     }
     
+      // console.log(rfidTag, "This is wrong");
     return this.userService.logEmployeeAccess(rfidTag).toPromise();
   }
+  
 // // This is the code for RFID tage using params
 //     @Post('log-access/:rfidtag')
 //     logEmployeeAccess(@Param('rfidtag') rfidtag: string, @Body() accessData: { accessType?: string, roleAtAccess?: string }): Promise<void> {

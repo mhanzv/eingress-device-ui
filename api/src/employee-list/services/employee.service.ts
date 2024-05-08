@@ -6,6 +6,7 @@ import { Employee } from '../models/employee.interface';
 import { _dbemployee } from '../models/employee.entity';
 import { _dbaccesslog } from '../../access-log/models/access-log.entity';  // Update this import path
 import { AccessLogService } from 'src/access-log/services/access-log.service';
+import { register } from 'module';
 
 @Injectable()
 export class EmployeeService {
@@ -59,7 +60,7 @@ create(employee: Employee): Observable<Employee> {
     }
     
     logEmployeeAccess(rfidTag: string): Observable<any> {
-        console.log(rfidTag);
+        // console.log(rfidTag);
         return from(this.userRepository.findOne({ where: { rfidtag: rfidTag } })).pipe(
             switchMap(employee => {
                 if (!employee) {
@@ -85,6 +86,7 @@ create(employee: Employee): Observable<Employee> {
                 return from(this.userRepository.save(employee)).pipe(
                     switchMap(() => {
                         // Log the access in AccessLogService
+                        // console.log(rfidTag, "This is wrong");
                         return this.accessLogService.logAccess(rfidTag);
                     })
                 );

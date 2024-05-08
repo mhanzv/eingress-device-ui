@@ -47,12 +47,20 @@ onFocus(): void{
 submitData(): void {
   // Perform data submission logic here
   this.rfidInput = this.inputElement.nativeElement.value;
+  
   if(this.rfidInput.trim() !== ''){
     this.employeeService.loginEmployee(this.rfidInput).subscribe({
       next: (response: any) => {
+        this.router.navigateByUrl('afterLoginPage');
         console.log('Employee access logged successfully:', response);
+
+        setTimeout(() => {
+          this.router.navigateByUrl('landingPage');
+        }, 5000); 
+
       },
       error: (error:any) => {
+        this.router.navigateByUrl('errorPage');
         console.error('Error logging employee access:', error);
         // Check if the error is due to employee not found
         if (error.status === 400 && error.error && error.error.message === 'Employee not found') {
@@ -62,6 +70,11 @@ submitData(): void {
           // Handle other errors, e.g., show a generic error message to the user
           console.error('An error occurred while logging employee access.');
         }
+
+        setTimeout(() => {
+          this.router.navigateByUrl('landingPage');
+        }, 5000); 
+
       }
     })
   }

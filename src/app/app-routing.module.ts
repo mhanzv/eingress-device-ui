@@ -11,11 +11,11 @@ const routes: Routes = [
     component: LandingPageComponent,
   },
   {
-    path: 'afterLogin',
+    path: 'afterLoginPage',
     component: AfterLoginComponent
   },
   {
-    path: 'error',
+    path: 'errorPage',
     component: ErrorPageComponent
   }
 ];
