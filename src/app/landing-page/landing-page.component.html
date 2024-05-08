@@ -9,7 +9,7 @@
             <h1>Ready to log in?</h1>
             <h2>Simply scan your fingerprint or ID below</h2>
             <input type="text" class="hidden-input" [hidden]="isHidden" #inputElement
-            (input)="onInput($event)" (focus)="onFocus()" (keyup.enter)="submitData()">
+           (focus)="onFocus()" (keyup.enter)="submitData()">
         </div>
     </div>
     <img class="JairoBot" src="/assets/images/JairoBot.png" alt="">
