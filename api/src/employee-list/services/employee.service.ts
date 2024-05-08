@@ -59,6 +59,7 @@ create(employee: Employee): Observable<Employee> {
     }
     
     logEmployeeAccess(rfidTag: string): Observable<any> {
+        console.log(rfidTag);
         return from(this.userRepository.findOne({ where: { rfidtag: rfidTag } })).pipe(
             switchMap(employee => {
                 if (!employee) {

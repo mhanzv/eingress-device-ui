@@ -12,7 +12,8 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }
 
   loginEmployee(rfidValue: string): Observable<any>{
-    const loginEmployeeUrl = `${this.apiUrl}log-access/${rfidValue}`;
+    console.log(rfidValue);
+    const loginEmployeeUrl = `${this.apiUrl}/log-access`;
     return this.http.post<any>(loginEmployeeUrl, rfidValue);
   }
 }

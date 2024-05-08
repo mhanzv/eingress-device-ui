@@ -123,6 +123,7 @@ create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observabl
 
   @Post('log-access')
   logAccess(@Body('rfidTag') rfidTag: string): Promise<void> {
+    console.log(rfidTag);
     if (!rfidTag) {
       throw new BadRequestException('RFID tag is required');
     }
