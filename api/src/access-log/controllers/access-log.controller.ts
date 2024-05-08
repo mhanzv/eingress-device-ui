@@ -65,12 +65,12 @@ export class AccessLogController {
     return this.accessLogService.delete(id);
   }
 
-  @Post('log-access')
-  logAccess(@Body('rfidTag') rfidTag: string): Promise<void> {
-    if (!rfidTag) {
-      throw new BadRequestException('RFID tag is required');
-    }
+  // @Post('log-access')
+  // logAccess(@Body('rfidTag') rfidTag: string): Promise<void> {
+  //   if (!rfidTag) {
+  //     throw new BadRequestException('RFID tag is required');
+  //   }
     
-    return this.accessLogService.logAccess(rfidTag).toPromise();
-  }
+  //   return this.accessLogService.logAccess(rfidTag).toPromise();
+  // }
 }
