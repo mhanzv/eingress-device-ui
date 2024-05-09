@@ -4,13 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 /* Body styles */
 body {
     background-color: #3C1215;
     padding: 50px; /*remove this after*/
-    font-family: 'Poppins', Arial, sans-serif;
 }
 
 /* Main container styles */
@@ -77,7 +77,7 @@ body {
 }
 
 
-.lower-container .JairoBot{
+.JairoBot{
     position: absolute;
     width: 250px; 
     height: 250px;
