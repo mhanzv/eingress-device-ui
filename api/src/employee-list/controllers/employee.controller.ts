@@ -24,28 +24,7 @@ export const storage = {
 export class EmployeeController {
     constructor(private userService: EmployeeService) {}
 
-    // @Post()
-    // create(@Body() employee: Employee): Observable<Employee | Object> {
-    //     return this.userService.create(employee);
-    // }
-//     @Post()
-//     @UseInterceptors(FileInterceptor('file', storage))
-//     create(@Body() payload: {employee: Employee}, @UploadedFile() file): Observable<Employee | Object> {
-//       if (!file) {
-//         throw new BadRequestException('Image file is required');
-//       }
-
-//       const updatedEmployeeData = JSON.parse(JSON.parse(JSON.stringify(payload.employee)))
-
-//       console.log('typeof ', updatedEmployeeData)
-
   
-//       // Assign the file path to the employee object
-//       // employee.profileImage = file.path;
-  
-//       // Call the service method to create the employee
-//   return this.userService.create({...updatedEmployeeData, profileImage: file.filename});
-// }
 
 @Post()
 @UseInterceptors(FileInterceptor('file', storage))
@@ -92,6 +71,7 @@ create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observabl
             map(() => ({ message: 'User and associated access logs deleted successfully' }))
         );
     }
+
     @Put(':id')
     @UseInterceptors(FileInterceptor('file', storage))
     updateOne(@Param('id') id: string, @Body() payload: { employee: Employee }, @UploadedFile() file): Observable<any> {
@@ -132,43 +112,6 @@ create(@Body() payload: { employee: Employee }, @UploadedFile() file): Observabl
     return this.userService.logEmployeeAccess(rfidTag).toPromise();
   }
   
-// // This is the code for RFID tage using params
-//     @Post('log-access/:rfidtag')
-//     logEmployeeAccess(@Param('rfidtag') rfidtag: string, @Body() accessData: { accessType?: string, roleAtAccess?: string }): Promise<void> {
-//       const { accessType, roleAtAccess } = accessData;
-    
-//       if (!rfidtag || !accessType || !roleAtAccess) {
-//         throw new BadRequestException('Invalid access data');
-//       }
-    
-//       return this.userService.logEmployeeAccess(rfidtag, accessType, roleAtAccess).toPromise();
-//     }
-    
-    // @Post('log-access/:rfidtag')
-    // logEmployeeAccess(@Param('rfidtag') rfidtag: string, @Body() accessData: { accessType: string, roleAtAccess: string }): Promise<void> {
-    //   const { accessType, roleAtAccess } = accessData;
-    
-    //   if (!rfidtag || !accessType || !roleAtAccess) {
-    //     throw new BadRequestException('Invalid access data');
-    //   }
-    
-    //   // Find the employee by rfidtag
-    //   return this.userService.findByRfidTag(rfidtag).pipe(
-    //     switchMap(employeeId => {
-    //       // Check if an employee with the given RFID tag exists
-    //       if (!employeeId) {
-    //         throw new NotFoundException('Employee not found');
-    //       }
-          
-    //       // Convert employeeId to string before logging the access
-    //       const employeeIdString = employeeId.toString();
-          
-    //       // Log the employee's access using their ID
-    //       return this.userService.logEmployeeAccess(employeeIdString, accessType, roleAtAccess).toPromise();
-    //     })
-    //   ).toPromise();
-    // }
-    
  
     @Post('upload')
     @UseInterceptors(FileInterceptor('file',storage))
