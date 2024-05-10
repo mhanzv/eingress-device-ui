@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sansation', Arial, sans-serif;
+}
+
+
+body {
+    background-color: #0C131D;
+    padding: 50px;
+
+}
+
+.main-container {
+    position: relative;
+    background-color: #0C131D;
+    height: 1024px;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.upper-container {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: center;
+}
+
+.upper-container img{
+    height: 150px;
+    width: 150px;
+}
+
+.EINGRESS{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upper-container p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #D0D0D1;
+}
+
+
+
+.lower-container {
+    position: relative;
+    width: 560px; 
+    height: calc(100% - 170px);
+    display: flex;
+    border-radius: 20px;
+    background-color: #121C2B;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+}
+
+.greeting{
+    font-size: 6rem;
+    font-weight:bolder;
+    color: #2291F2;
+}
+
+.photoholder img{
+    width: 350px;
+    height: 350px;
+    border-radius: 300px;
+}
+
+.name{
+    font-size: 4rem;
+    color: #D0D0D1;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight:300;
+}
+
+.date{
+    font-size: 1.5rem;
+    color: #D0D0D1;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+.hidden-input{
+    position: absolute;
+    left: -9999px;
+}
+
+@keyframes moveUpDown {
+    0% {
+        bottom: 0; 
+    }
+    100% {
+        bottom: 20px;
+    }
+} 

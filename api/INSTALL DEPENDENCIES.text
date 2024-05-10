@@ -1,0 +1,28 @@
+<!-- # after cloning
+
+***************NOTE: INSTALL THIS INSIDE THE api FOLDER**********************
+# npm install
+
+# npm install -g @nestjs/cli
+# nest -v
+
+
+# npm install bcrypt
+# npm install @nestjs/jwt
+
+# npm i --save @nestjs/config
+# npm install --save @nestjs/typeorm typeorm pg -->
+# npm install --save-dev @types/multer
+# npm i uuid --save
+---------------------------------------------------
+CREAATE AN .env file
+
+POSTGRES_URL="postgres://default:XAs0rGbvcI5O@ep-holy-mud-a1zszn94-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require"
+POSTGRES_PRISMA_URL="postgres://default:XAs0rGbvcI5O@ep-holy-mud-a1zszn94-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+POSTGRES_URL_NO_SSL="postgres://default:XAs0rGbvcI5O@ep-holy-mud-a1zszn94-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb"
+POSTGRES_URL_NON_POOLING="postgres://default:XAs0rGbvcI5O@ep-holy-mud-a1zszn94.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require"
+POSTGRES_USER="default"
+POSTGRES_HOST="ep-holy-mud-a1zszn94-pooler.ap-southeast-1.aws.neon.tech"
+POSTGRES_PASSWORD="XAs0rGbvcI5O"
+POSTGRES_DATABASE="verceldb"
+JWT_SECRET=xczmeqwjhsad132
