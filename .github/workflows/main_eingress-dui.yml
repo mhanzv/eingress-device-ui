@@ -19,18 +19,19 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '20.x'
 
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build 
-          
+          npm run build --if-present
+          npm run test --if-present
+
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-app
           path: release.zip
@@ -46,7 +47,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node-app
 
@@ -54,15 +55,15 @@ jobs:
         run: unzip release.zip
       
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CDE5284078214FF8A3E5B548D94FE57D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0AD10E8595C34050A387EE35FCFC5463 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6E1F1D6E4EE1489F9AF8E8972EC5B9F0 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_79A60E50CC414BDC8AAA81B590777F37 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2A86D143B6EA493CB2D59F71A311F006 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_54AADE776433401D888EE8011532827F }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'eingress-dui'
           slot-name: 'Production'
